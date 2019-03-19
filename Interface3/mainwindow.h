@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QMessageBox>
+
+
 #include <businesslogic.h>
 #include <QTableWidgetItem>
 
@@ -24,6 +29,8 @@ public:
 private slots:
     void productClicked(int pos);
     void edinClicked(int pos);
+public slots:
+    void Save ();
 
 private:
     Ui::MainWindow *ui;

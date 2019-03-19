@@ -120,3 +120,19 @@ void MainWindow::edinClicked(int pos)
         ui->tableWidget->setItem(sender()->property("row").toInt(), 3, item);
     }
 }
+void MainWindow::Save ()
+{
+    QString file_name = QFileDialog::getSaveFileName(this, "Сохранить форму",
+                                                     QDir::currentPath(),
+                                                     " (*.xls)");
+
+
+    //file_name += ".jpg";
+//    QPixmap pix_map = QPixmap::grabWidget(ui->widget);
+//    QPixmap pix_map2 = pix_map.copy(1, 1, 678, 258);
+//    if (!pix_map2.save(file_name)) {
+//        QMessageBox::information(this, "Предупреждение",
+//                                 "Картинка не была сохранена");
+//    }
+//    addRow();
+}

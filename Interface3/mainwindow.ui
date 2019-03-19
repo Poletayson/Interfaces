@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1031</width>
-    <height>744</height>
+    <width>1102</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -359,7 +359,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1031</width>
+     <width>1102</width>
      <height>20</height>
     </rect>
    </property>
@@ -384,9 +384,35 @@
    <property name="text">
     <string>Сохранть в Excel</string>
    </property>
+   <property name="toolTip">
+    <string>Сохранть</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>action_Excel</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Save()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>550</x>
+     <y>374</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>Save()</slot>
+ </slots>
 </ui>
