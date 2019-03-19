@@ -25,10 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    businesslogic.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    businesslogic.h
 
 FORMS += \
         mainwindow.ui
