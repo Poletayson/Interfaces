@@ -355,7 +355,7 @@
          </widget>
          <widget class="QWidget" name="tab_2">
           <attribute name="title">
-           <string>Вкладка 2</string>
+           <string>Остаток 2</string>
           </attribute>
          </widget>
         </widget>
