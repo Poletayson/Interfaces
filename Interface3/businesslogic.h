@@ -7,10 +7,11 @@
 class BusinessLogic
 {
 public:
-    QList<QString> ListOrganization;
-    QList<QString> ListPodrazd;
     QList<QString> ListPeoples;
+    QList<QString> ListDolznost;
     QMap <int, QString> Products;
+    QMap <int, QString> Organization;
+    QMap <int, QString> Podrazdel;
     QList<float> ListPrice;
     QMap <int, QString> Edin;
 

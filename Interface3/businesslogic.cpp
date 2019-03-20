@@ -3,16 +3,25 @@
 BusinessLogic::BusinessLogic()
 {
  //заполняем списки
-    ListOrganization.append("Столовая №1");
-    ListOrganization.append("Столовая №2");
-    ListPodrazd.append("Склад №1");
-    ListPodrazd.append("Склад №2");
-    ListPodrazd.append("Холодильное помещение");
+//    ListOrganization.append("Столовая №1");
+//    ListOrganization.append("Столовая №2");
+    Organization.insert(1245, "Столовая №1");
+    Organization.insert(1246, "Столовая №2");
+    Podrazdel.insert(2255, "Склад №1");
+    Podrazdel.insert(2256, "Склад №2");
+    Podrazdel.insert(2257, "Холодильное помещение");
+
+//    ListPodrazd.append("Склад №1");
+//    ListPodrazd.append("Склад №2");
+//    ListPodrazd.append("Холодильное помещение");
 
     ListPeoples.append("Иванов Иван Иванович");
     ListPeoples.append("Петров Иван Иванович");
     ListPeoples.append("Семенов Денис Игоревич");
     ListPeoples.append("Ямщиков Федор Денисович");
+
+    ListDolznost.append("нач.отд.снаб.");
+    ListDolznost.append("зам.нач.отд.снаб.");
 
 
     Products.insert(101, "Апельсин");

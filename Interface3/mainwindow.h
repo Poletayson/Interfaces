@@ -33,6 +33,8 @@ public:
 private slots:
     void productClicked(int pos);
     void edinClicked(int pos);
+    void on_tableWidget_cellChanged(int row, int column);
+
 public slots:
     void Save ();
 
