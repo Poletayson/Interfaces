@@ -5,6 +5,10 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QMessageBox>
+//#include <
+#include <xlsxdocument.h>   //библиотека для Exel
+#include <xlsxformat.h>
+
 
 
 #include <businesslogic.h>

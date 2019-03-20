@@ -85,11 +85,15 @@ void MainWindow::productClicked(int pos)
 {
 //вбиваем код
     QTableWidgetItem* item = new QTableWidgetItem();
+    Qt::ItemFlags flags = item->flags() & ~Qt::ItemFlag::ItemIsEditable;
+    item->setFlags(flags);
     if (pos > 0)
     {
         item->setText( QString::number(BL.Products.key(((QComboBox*)sender())->itemText(pos))));
         ui->tableWidget->setItem(sender()->property("row").toInt(), 1, item);
         item = new QTableWidgetItem(QString::number(BL.ListPrice[pos-1], 'f', 2));
+        flags = item->flags() & ~Qt::ItemFlag::ItemIsEditable;
+        item->setFlags(flags);
         ui->tableWidget->setItem(sender()->property("row").toInt(), 4, item);
     }
     else
@@ -97,6 +101,8 @@ void MainWindow::productClicked(int pos)
         item->setText("");
         ui->tableWidget->setItem(sender()->property("row").toInt(), 1, item);
         item = new QTableWidgetItem("");
+        flags = item->flags() & ~Qt::ItemFlag::ItemIsEditable;
+        item->setFlags(flags);
         ui->tableWidget->setItem(sender()->property("row").toInt(), 4, item);
     }
 
@@ -109,6 +115,8 @@ void MainWindow::edinClicked(int pos)
 {
 //вбиваем код
     QTableWidgetItem* item = new QTableWidgetItem();
+    Qt::ItemFlags flags = item->flags() & ~Qt::ItemFlag::ItemIsEditable;
+    item->setFlags(flags);
     if (pos > 0)
     {
         item->setText( QString::number(BL.Edin.key(((QComboBox*)sender())->itemText(pos))));
@@ -124,15 +132,14 @@ void MainWindow::Save ()
 {
     QString file_name = QFileDialog::getSaveFileName(this, "Сохранить форму",
                                                      QDir::currentPath(),
-                                                     " (*.xls)");
+                                                     " (*.xlsx)");
+    QXlsx::Document form ("OP16.xlsx");       //наш документ для сохранения
+     //QXlsx::Document xlsx (file_name);
+     //xlsx.write(form);
+    form.write("A1", " Работает!");
+    //xlsx.write("A1", " Работай!!");
 
-
-    //file_name += ".jpg";
-//    QPixmap pix_map = QPixmap::grabWidget(ui->widget);
-//    QPixmap pix_map2 = pix_map.copy(1, 1, 678, 258);
-//    if (!pix_map2.save(file_name)) {
-//        QMessageBox::information(this, "Предупреждение",
-//                                 "Картинка не была сохранена");
-//    }
-//    addRow();
+    //xlsx.save();
+    //form.save();//saveAs(file_name); //сохраняем
+    form.saveAs(file_name);
 }

@@ -3,8 +3,11 @@
 # Project created by QtCreator 2019-03-15T02:24:30
 #
 #-------------------------------------------------
+#подключим исходники
+include(C:\Qt\Other\QtXlsxWriter\src\xlsx\qtxlsx.pri)
 
-QT       += core gui
+QT       += core gui #xlsx
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
