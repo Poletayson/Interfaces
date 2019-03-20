@@ -221,9 +221,9 @@ void MainWindow::Save ()    //сохраняем в файл
 
 //заполняем оборотную сторону формы
     float sum2 = 0;
-    for (int i = 1; i + 9 < (ui->tableWidget->rowCount() - 1) && i <= 21; i++)   //все строки таблицы кроме пустой
+    for (int i = 0; i + 10 < (ui->tableWidget->rowCount() - 1) && i <= 21; i++)   //все строки таблицы кроме пустой
     {
-        int j = i + 9;
+        int j = i + 10;
         if (((QComboBox*)ui->tableWidget->cellWidget(j, 0))->currentText().length() > 0)    //поле продукта непустое
         {
             form.write("A" + QString::number(44 + i), QString::number(j + 1));        //номер записи
