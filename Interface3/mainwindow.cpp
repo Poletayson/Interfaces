@@ -505,12 +505,12 @@ void MainWindow::dopTableToExel (int n, QTableWidget* table, QXlsx::Document* fo
         form->write("AS66", QString::number(sum2, 'f', 2));
         form->write("AS67", QString::number(sum2 + sum, 'f', 2));
 
-        form.write("AP20", Date->date().day());        //дата остатка
-        form.write("AP39", Date->date().day());        //дата остатка
-        form.write("AR20", Date->date().month());        //дата остатка
-        form.write("AR39", Date->date().month());        //дата остатка
-        form.write("AV20", Date->date().year()%1000);        //дата остатка
-        form.write("AV39", Date->date().year()%1000);        //дата остатка
+        form->write("AP20", Date->date().day());        //дата остатка
+        form->write("AP39", Date->date().day());        //дата остатка
+        form->write("AR20", Date->date().month());        //дата остатка
+        form->write("AR39", Date->date().month());        //дата остатка
+        form->write("AV20", Date->date().year()%1000);        //дата остатка
+        form->write("AV39", Date->date().year()%1000);        //дата остатка
         break;
     }
     case 1:
@@ -542,12 +542,12 @@ void MainWindow::dopTableToExel (int n, QTableWidget* table, QXlsx::Document* fo
         form->write("BC66", QString::number(sum2, 'f', 2));
         form->write("BC67", QString::number(sum2 + sum, 'f', 2));
 
-        form.write("AZ20", Date->date().day());        //дата остатка
-        form.write("AZ39", Date->date().day());        //дата остатка
-        form.write("BB20", Date->date().month());        //дата остатка
-        form.write("BB39", Date->date().month());        //дата остатка
-        form.write("BF20", Date->date().year()%1000);        //дата остатка
-        form.write("BF39", Date->date().year()%1000);        //дата остатка
+        form->write("AZ20", Date->date().day());        //дата остатка
+        form->write("AZ39", Date->date().day());        //дата остатка
+        form->write("BB20", Date->date().month());        //дата остатка
+        form->write("BB39", Date->date().month());        //дата остатка
+        form->write("BF20", Date->date().year()%1000);        //дата остатка
+        form->write("BF39", Date->date().year()%1000);        //дата остатка
         break;
     }
     case 2:
@@ -579,12 +579,12 @@ void MainWindow::dopTableToExel (int n, QTableWidget* table, QXlsx::Document* fo
         form->write("BN66", QString::number(sum2, 'f', 2));
         form->write("BN67", QString::number(sum2 + sum, 'f', 2));
 
-        form.write("BJ20", Date->date().day());        //дата остатка
-        form.write("BJ39", Date->date().day());        //дата остатка
-        form.write("BL20", Date->date().month());        //дата остатка
-        form.write("BL39", Date->date().month());        //дата остатка
-        form.write("BQ20", Date->date().year()%1000);        //дата остатка
-        form.write("BQ39", Date->date().year()%1000);        //дата остатка
+        form->write("BJ20", Date->date().day());        //дата остатка
+        form->write("BJ39", Date->date().day());        //дата остатка
+        form->write("BL20", Date->date().month());        //дата остатка
+        form->write("BL39", Date->date().month());        //дата остатка
+        form->write("BQ20", Date->date().year()%1000);        //дата остатка
+        form->write("BQ39", Date->date().year()%1000);        //дата остатка
         break;
     }
     case 3:
@@ -615,12 +615,12 @@ void MainWindow::dopTableToExel (int n, QTableWidget* table, QXlsx::Document* fo
         }
         form->write("BX66", QString::number(sum2, 'f', 2));
         form->write("BX67", QString::number(sum2 + sum, 'f', 2));
-        form.write("BU20", Date->date().day());        //дата остатка
-        form.write("BU39", Date->date().day());        //дата остатка
-        form.write("BW20", Date->date().month());        //дата остатка
-        form.write("BW39", Date->date().month());        //дата остатка
-        form.write("CA20", Date->date().year()%1000);        //дата остатка
-        form.write("CA39", Date->date().year()%1000);        //дата остатка
+        form->write("BU20", Date->date().day());        //дата остатка
+        form->write("BU39", Date->date().day());        //дата остатка
+        form->write("BW20", Date->date().month());        //дата остатка
+        form->write("BW39", Date->date().month());        //дата остатка
+        form->write("CA20", Date->date().year()%1000);        //дата остатка
+        form->write("CA39", Date->date().year()%1000);        //дата остатка
         break;
     }
     default:
