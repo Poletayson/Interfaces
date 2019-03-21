@@ -18,7 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableWidget->setColumnWidth(6, 150);
 
 
-    addRow();
+    for (int i = 1; i <=5; i++)     //добавляем по строке
+        addRow (i);
 
 
 
@@ -44,72 +45,165 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addRow ()
+void MainWindow::addRow (int n)
 {
-    ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
+    QTableWidget* tWidget;
+    switch (n)          //выбираем куда добавим
+    {
+    case 1:
+    {
+        tWidget = ui->tableWidget;
+        break;
+    }
+    case 2:
+    {
+        tWidget = ui->tableWidget_2;
+        break;
+    }
+    case 3:
+    {
+        tWidget = ui->tableWidget_3;
+        break;
+    }
+    case 4:
+    {
+        tWidget = ui->tableWidget_4;
+        break;
+    }
+    case 5:
+    {
+        tWidget = ui->tableWidget_5;
+        break;
+    }
+    default:
+        break;
+    }
+
+
+
+    tWidget->setRowCount(tWidget->rowCount() + 1);
+    //устанавливаем запрет на редактирование
+    QTableWidgetItem* ptr = new QTableWidgetItem();
+    Qt::ItemFlags flags = ptr->flags() & ~Qt::ItemFlag::ItemIsEditable;
+    ptr->setFlags(flags);
 
 
     //продукты
-    QComboBox* products = new QComboBox (ui->tableWidget);
-    products->addItem("");
-    products->addItems(BL.Products.values());           //добавляем значения продуктов
-    products->setProperty("row", ui->tableWidget->rowCount()-1);  //указываем строку и столбец
-    products->setProperty("col", 0);
-    connect(products, SIGNAL(currentIndexChanged(int)),this, SLOT(productClicked(int)));
-    ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1, 0, products);
+    if (n == 1) //комбобокс
+    {
+        QComboBox* products = new QComboBox (tWidget);
+        products->addItem("");
+        products->addItems(BL.Products.values());           //добавляем значения продуктов
+        products->setProperty("row", tWidget->rowCount()-1);  //указываем строку и столбец
+        products->setProperty("col", 0);
+        connect(products, SIGNAL(currentIndexChanged(int)),this, SLOT(productClicked(int)));
+        tWidget->setCellWidget(tWidget->rowCount()-1, 0, products);
+    }
+    else
+    {
+        tWidget->setItem(tWidget->rowCount()-1, 0, ptr);    //просто поле
+        ptr = new QTableWidgetItem();
+        ptr->setFlags(flags);
+    }
 
 
     //единицы
-    QComboBox* edin = new QComboBox (ui->tableWidget);
-    edin->addItem("");
-    edin->addItems(BL.Edin.values());           //добавляем значения
-    edin->setProperty("row", ui->tableWidget->rowCount()-1);  //указываем строку и столбец
-    edin->setProperty("col", 2);
-    connect(edin, SIGNAL(currentIndexChanged(int)),this, SLOT(edinClicked(int)));
-    ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1, 2, edin);
+    if(n == 1)
+    {
+        QComboBox* edin = new QComboBox (tWidget);
+        edin->addItem("");
+        edin->addItems(BL.Edin.values());           //добавляем значения
+        edin->setProperty("row", tWidget->rowCount()-1);  //указываем строку и столбец
+        connect(edin, SIGNAL(currentIndexChanged(int)),this, SLOT(edinClicked(int)));
+        edin->setProperty("col", 2);
+        tWidget->setCellWidget(tWidget->rowCount()-1, 2, edin);
+    }
+    else
+    {
+        tWidget->setItem(tWidget->rowCount()-1, 1, ptr);    //просто поле
+        ptr = new QTableWidgetItem();
+        ptr->setFlags(flags);
+    }
 
-    //устанавливаем запрет на редактирование
-    QTableWidgetItem* ptr = new QTableWidgetItem();
 
-    Qt::ItemFlags flags = ptr->flags() & ~Qt::ItemFlag::ItemIsEditable;
-    ptr->setFlags(flags);
-    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, ptr);
-
-    ptr = new QTableWidgetItem();
-    ptr->setFlags(flags);
-    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 3, ptr);
-
-    ptr = new QTableWidgetItem();
-    ptr->setFlags(flags);
-    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 4, ptr);
-
-    ptr = new QTableWidgetItem();
-    ptr->setFlags(flags);
-    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 6, ptr);
-
-    ptr = new QTableWidgetItem();
-    //QLineEdit *ptrL = new QLineEdit();
-    //ptrL->setInputMask("9999999");
+    if (n == 1)     //только в первую таблицу помещаем коды
+    {
     //ptr->setFlags(flags);
-    ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 5, ptr);
+        tWidget->setItem(tWidget->rowCount()-1, 1, ptr);
+
+        ptr = new QTableWidgetItem();
+        ptr->setFlags(flags);
+        tWidget->setItem(tWidget->rowCount()-1, 3, ptr);
+        ptr = new QTableWidgetItem();
+        ptr->setFlags(flags);
+    }
 
 
+    if (n == 1)
+        tWidget->setItem(tWidget->rowCount()-1, 4, ptr);
+    else
+        tWidget->setItem(tWidget->rowCount()-1, 2, ptr);
+
+
+    ptr = new QTableWidgetItem();
+    ptr->setFlags(flags);
+    if (n == 1)
+        tWidget->setItem(tWidget->rowCount()-1, 6, ptr);
+    else
+        tWidget->setItem(tWidget->rowCount()-1, 4, ptr);
+
+
+    ptr = new QTableWidgetItem();
+    if (n == 1)
+        tWidget->setItem(tWidget->rowCount()-1, 5, ptr);
+    else
+        tWidget->setItem(tWidget->rowCount()-1, 3, ptr);
 }
 
 void MainWindow::productClicked(int pos)
 {
 //вбиваем код
     QTableWidgetItem* item = new QTableWidgetItem();
+    QTableWidgetItem* itemOther = new QTableWidgetItem();   //для других таблиц
     Qt::ItemFlags flags = item->flags() & ~Qt::ItemFlag::ItemIsEditable;
     item->setFlags(flags);
     if (pos > 0)
     {
-        item->setText( QString::number(BL.Products.key(((QComboBox*)sender())->itemText(pos))));
+        item->setText( QString::number(BL.Products.key(((QComboBox*)sender())->itemText(pos))));//или ->currentText()
         ui->tableWidget->setItem(sender()->property("row").toInt(), 1, item);
         item = new QTableWidgetItem(QString::number(BL.ListPrice[pos-1], 'f', 2));
         flags = item->flags() & ~Qt::ItemFlag::ItemIsEditable;
         item->setFlags(flags);
         ui->tableWidget->setItem(sender()->property("row").toInt(), 4, item);
+
+        ///в остальные - только название продукта
+        itemOther = new QTableWidgetItem(((QComboBox*)sender())->currentText());
+        item->setFlags(flags);
+        ui->tableWidget_2->setItem(sender()->property("row").toInt(), 0, itemOther);
+        itemOther = new QTableWidgetItem(((QComboBox*)sender())->currentText());
+        item->setFlags(flags);
+        ui->tableWidget_3->setItem(sender()->property("row").toInt(), 0, itemOther);
+        itemOther = new QTableWidgetItem(((QComboBox*)sender())->currentText());
+        item->setFlags(flags);
+        ui->tableWidget_4->setItem(sender()->property("row").toInt(), 0, itemOther);
+        itemOther = new QTableWidgetItem(((QComboBox*)sender())->currentText());
+        item->setFlags(flags);
+        ui->tableWidget_5->setItem(sender()->property("row").toInt(), 0, itemOther);
+
+        ///цены
+        itemOther = new QTableWidgetItem(QString::number(BL.ListPrice[pos-1], 'f', 2));
+        itemOther->setFlags(flags);
+        ui->tableWidget_2->setItem(sender()->property("row").toInt(), 2, itemOther);
+        itemOther = new QTableWidgetItem(QString::number(BL.ListPrice[pos-1], 'f', 2));
+        itemOther->setFlags(flags);
+        ui->tableWidget_3->setItem(sender()->property("row").toInt(), 2, itemOther);
+        itemOther = new QTableWidgetItem(QString::number(BL.ListPrice[pos-1], 'f', 2));
+        itemOther->setFlags(flags);
+        ui->tableWidget_4->setItem(sender()->property("row").toInt(), 2, itemOther);
+        itemOther = new QTableWidgetItem(QString::number(BL.ListPrice[pos-1], 'f', 2));
+        itemOther->setFlags(flags);
+        ui->tableWidget_5->setItem(sender()->property("row").toInt(), 2, itemOther);
+
     }
     else
     {
@@ -119,11 +213,40 @@ void MainWindow::productClicked(int pos)
         flags = item->flags() & ~Qt::ItemFlag::ItemIsEditable;
         item->setFlags(flags);
         ui->tableWidget->setItem(sender()->property("row").toInt(), 4, item);
+
+        ///в остальные - только название продукта
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_2->setItem(sender()->property("row").toInt(), 0, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_3->setItem(sender()->property("row").toInt(), 0, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_4->setItem(sender()->property("row").toInt(), 0, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_5->setItem(sender()->property("row").toInt(), 0, itemOther);
+
+        ///цены
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_2->setItem(sender()->property("row").toInt(), 2, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_3->setItem(sender()->property("row").toInt(), 2, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_4->setItem(sender()->property("row").toInt(), 2, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_5->setItem(sender()->property("row").toInt(), 2, itemOther);
     }
 
 //добавляем строку
     if (sender()->property("row") == ui->tableWidget->rowCount()-1)
-        addRow ();
+        for (int i = 1; i <=5; i++)      //добавляем по строке
+            addRow (i);
 }
 
 void MainWindow::edinClicked(int pos)
@@ -247,3 +370,18 @@ void MainWindow::Save ()    //сохраняем в файл
 }
 
 
+///изменилась вкладка
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    if (index != 0)
+    {
+//        QLayout* ptr = ui->tabWidget->currentWidget();//ui->tabWidget->layout();
+//        (ui->tabWidget->layout())->addWidget(ui->tableWidget);
+        //((QGridLayout*)ui->tabWidget->currentWidget())->removeWidget(ui->tableWidget);
+        //if ()
+    }
+    else
+    {
+
+    }
+}

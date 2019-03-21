@@ -27,13 +27,15 @@ public:
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    //Добавить строку в конец
-    void addRow ();
+    ///Добавить строку в конец таблицы n (с единицы)
+    void addRow (int n);
 
 private slots:
     void productClicked(int pos);
     void edinClicked(int pos);
     void on_tableWidget_cellChanged(int row, int column);
+    ///изменилась вкладка
+    void on_tabWidget_currentChanged(int index);
 
 public slots:
     void Save ();
