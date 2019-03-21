@@ -202,51 +202,10 @@
            <string>2</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Times New Roman</family>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Остаток на</string>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::AutoText</enum>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="1">
             <widget class="QDateEdit" name="dateEditOst1_2"/>
            </item>
-           <item row="0" column="2">
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>794</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="0" colspan="3">
+           <item row="1" column="0" colspan="4">
             <widget class="QTableWidget" name="tableWidget_2">
              <property name="rowCount">
               <number>0</number>
@@ -290,6 +249,54 @@
              </column>
             </widget>
            </item>
+           <item row="0" column="3">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>664</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Times New Roman</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Остаток на</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::AutoText</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>Учитывать остаток</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tab_3">
@@ -297,6 +304,9 @@
            <string>3</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="1">
+            <widget class="QDateEdit" name="dateEditOst1_3"/>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_10">
              <property name="sizePolicy">
@@ -325,10 +335,7 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QDateEdit" name="dateEditOst1_3"/>
-           </item>
-           <item row="0" column="2">
+           <item row="0" column="3">
             <spacer name="horizontalSpacer_3">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -341,7 +348,7 @@
              </property>
             </spacer>
            </item>
-           <item row="1" column="0" colspan="3">
+           <item row="1" column="0" colspan="4">
             <widget class="QTableWidget" name="tableWidget_3">
              <property name="rowCount">
               <number>0</number>
@@ -385,6 +392,13 @@
              </column>
             </widget>
            </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="checkBox_2">
+             <property name="text">
+              <string>Учитывать остаток</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tab_4">
@@ -392,6 +406,9 @@
            <string>4</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_8">
+           <item row="0" column="1">
+            <widget class="QDateEdit" name="dateEditOst1_4"/>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_11">
              <property name="sizePolicy">
@@ -420,23 +437,20 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QDateEdit" name="dateEditOst1_4"/>
-           </item>
-           <item row="0" column="2">
+           <item row="0" column="3">
             <spacer name="horizontalSpacer_4">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>794</width>
+               <width>664</width>
                <height>20</height>
               </size>
              </property>
             </spacer>
            </item>
-           <item row="1" column="0" colspan="3">
+           <item row="1" column="0" colspan="4">
             <widget class="QTableWidget" name="tableWidget_4">
              <property name="rowCount">
               <number>0</number>
@@ -480,6 +494,13 @@
              </column>
             </widget>
            </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="checkBox_3">
+             <property name="text">
+              <string>Учитывать остаток</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tab_5">
@@ -487,51 +508,7 @@
            <string>5</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Times New Roman</family>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Остаток на</string>
-             </property>
-             <property name="textFormat">
-              <enum>Qt::AutoText</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QDateEdit" name="dateEditOst1_5"/>
-           </item>
-           <item row="0" column="2">
-            <spacer name="horizontalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>794</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="0" colspan="3">
+           <item row="1" column="0" colspan="4">
             <widget class="QTableWidget" name="tableWidget_5">
              <property name="rowCount">
               <number>0</number>
@@ -573,6 +550,57 @@
                <string>Сумма</string>
               </property>
              </column>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>664</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1">
+            <widget class="QDateEdit" name="dateEditOst1_5"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_12">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Times New Roman</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Остаток на</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::AutoText</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="checkBox_4">
+             <property name="text">
+              <string>Учитывать остаток</string>
+             </property>
             </widget>
            </item>
           </layout>

@@ -249,21 +249,51 @@ void MainWindow::productClicked(int pos)
             addRow (i);
 }
 
+//Едницы измерения
 void MainWindow::edinClicked(int pos)
 {
 //вбиваем код
     QTableWidgetItem* item = new QTableWidgetItem();
+    QTableWidgetItem* itemOther;
     Qt::ItemFlags flags = item->flags() & ~Qt::ItemFlag::ItemIsEditable;
     item->setFlags(flags);
     if (pos > 0)
     {
         item->setText( QString::number(BL.Edin.key(((QComboBox*)sender())->itemText(pos))));
         ui->tableWidget->setItem(sender()->property("row").toInt(), 3, item);
+
+        ///единицы
+        itemOther = new QTableWidgetItem(((QComboBox*)sender())->currentText());
+        itemOther->setFlags(flags);
+        ui->tableWidget_2->setItem(sender()->property("row").toInt(), 1, itemOther);
+        itemOther = new QTableWidgetItem(((QComboBox*)sender())->currentText());
+        itemOther->setFlags(flags);
+        ui->tableWidget_3->setItem(sender()->property("row").toInt(), 1, itemOther);
+        itemOther = new QTableWidgetItem(((QComboBox*)sender())->currentText());
+        itemOther->setFlags(flags);
+        ui->tableWidget_4->setItem(sender()->property("row").toInt(), 1, itemOther);
+        itemOther = new QTableWidgetItem(((QComboBox*)sender())->currentText());
+        itemOther->setFlags(flags);
+        ui->tableWidget_5->setItem(sender()->property("row").toInt(), 1, itemOther);
     }
     else
     {
         item->setText("");
         ui->tableWidget->setItem(sender()->property("row").toInt(), 3, item);
+
+        ///единицы
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_2->setItem(sender()->property("row").toInt(), 1, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_3->setItem(sender()->property("row").toInt(), 1, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_4->setItem(sender()->property("row").toInt(), 1, itemOther);
+        itemOther = new QTableWidgetItem("");
+        itemOther->setFlags(flags);
+        ui->tableWidget_5->setItem(sender()->property("row").toInt(), 1, itemOther);
     }
 }
 
@@ -279,6 +309,58 @@ void MainWindow::on_tableWidget_cellChanged(int row, int column)    //клик �
         }
     }
 }
+
+void MainWindow::on_tableWidget_2_cellChanged(int row, int column)
+{
+    if (column == 3)
+    {
+        bool* ok = new bool;
+        ui->tableWidget_2->item(row, column)->text().toFloat(ok);
+        if(ok)              //имеем число
+        {
+            ui->tableWidget_2->item(row, 4)->setText(QString::number(ui->tableWidget_2->item(row, 3)->text().toFloat() * ui->tableWidget_2->item(row, 2)->text().toFloat(), 'f', 2)); //устанавливаем сумму
+        }
+    }
+}
+void MainWindow::on_tableWidget_3_cellChanged(int row, int column)
+{
+    if (column == 3)
+    {
+        bool* ok = new bool;
+        ui->tableWidget_3->item(row, column)->text().toFloat(ok);
+        if(ok)              //имеем число
+        {
+            ui->tableWidget_3->item(row, 4)->setText(QString::number(ui->tableWidget_3->item(row, 3)->text().toFloat() * ui->tableWidget_3->item(row, 2)->text().toFloat(), 'f', 2)); //устанавливаем сумму
+        }
+    }
+}
+
+void MainWindow::on_tableWidget_4_cellChanged(int row, int column)
+{
+    if (column == 3)
+    {
+        bool* ok = new bool;
+        ui->tableWidget_4->item(row, column)->text().toFloat(ok);
+        if(ok)              //имеем число
+        {
+            ui->tableWidget_4->item(row, 4)->setText(QString::number(ui->tableWidget_4->item(row, 3)->text().toFloat() * ui->tableWidget_4->item(row, 2)->text().toFloat(), 'f', 2)); //устанавливаем сумму
+        }
+    }
+}
+
+void MainWindow::on_tableWidget_5_cellChanged(int row, int column)
+{
+    if (column == 3)
+    {
+        bool* ok = new bool;
+        ui->tableWidget_5->item(row, column)->text().toFloat(ok);
+        if(ok)              //имеем число
+        {
+            ui->tableWidget_5->item(row, 4)->setText(QString::number(ui->tableWidget_5->item(row, 3)->text().toFloat() * ui->tableWidget_5->item(row, 2)->text().toFloat(), 'f', 2)); //устанавливаем сумму
+        }
+    }
+}
+
 
 void MainWindow::Save ()    //сохраняем в файл
 {
@@ -364,9 +446,186 @@ void MainWindow::Save ()    //сохраняем в файл
     form.write("AI67", QString::number(sum2 + sum, 'f', 2));
 
 
+    int nDop = 0;   //номер дополнительного остатка
+    if (ui->checkBox->isChecked())
+    {
+        dopTableToExel (nDop, ui->tableWidget_2, &form, ui->dateEditOst1_2);
+        nDop++;
+    }
+    if (ui->checkBox_2->isChecked())
+    {
+        dopTableToExel (nDop, ui->tableWidget_3, &form, ui->dateEditOst1_3);
+        nDop++;
+    }
+    if (ui->checkBox_3->isChecked())
+    {
+        dopTableToExel (nDop, ui->tableWidget_4, &form, ui->dateEditOst1_4);
+        nDop++;
+    }
+    if (ui->checkBox_4->isChecked())
+    {
+        dopTableToExel (nDop, ui->tableWidget_5, &form, ui->dateEditOst1_5);
+        nDop++;
+    }
+
     //xlsx.save();
     //form.save();//saveAs(file_name); //сохраняем
     form.saveAs(file_name);
+}
+
+void MainWindow::dopTableToExel (int n, QTableWidget* table, QXlsx::Document* form, QDateEdit* Date)
+{
+    switch (n) {
+    case 0:
+    {
+        float sum = 0;
+        for (int i = 0; i < (table->rowCount() - 1) && i <= 9; i++)   //все строки таблицы кроме пустой
+        {
+            if (table->item(i, 0)->text().length() > 0)    //поле продукта непустое
+            {
+                form->write("AO" + QString::number(25 + i), table->item(i, 3)->text());        //кол-во
+                form->write("AS" + QString::number(25 + i), table->item(i, 4)->text());        //сумма
+                sum += table->item(i, 4)->text().toFloat();
+            }
+        }
+        form->write("AS35", QString::number(sum, 'f', 2));
+
+    //заполняем оборотную сторону формы
+        float sum2 = 0;
+        for (int i = 0; i + 10 < (table->rowCount() - 1) && i <= 21; i++)   //все строки таблицы кроме пустой
+        {
+            int j = i + 10;
+           if (table->item(j, 0)->text().length() > 0)     //поле продукта непустое
+            {
+                form->write("AO" + QString::number(44 + i), table->item(j, 3)->text());        //код единицы
+                form->write("AS" + QString::number(44 + i), table->item(j, 4)->text());        //код единицы
+                sum2 += table->item(j, 4)->text().toFloat();
+            }
+        }
+        form->write("AS66", QString::number(sum2, 'f', 2));
+        form->write("AS67", QString::number(sum2 + sum, 'f', 2));
+
+        form.write("AP20", Date->date().day());        //дата остатка
+        form.write("AP39", Date->date().day());        //дата остатка
+        form.write("AR20", Date->date().month());        //дата остатка
+        form.write("AR39", Date->date().month());        //дата остатка
+        form.write("AV20", Date->date().year()%1000);        //дата остатка
+        form.write("AV39", Date->date().year()%1000);        //дата остатка
+        break;
+    }
+    case 1:
+    {
+        float sum = 0;
+        for (int i = 0; i < (table->rowCount() - 1) && i <= 9; i++)   //все строки таблицы кроме пустой
+        {
+            if (table->item(i, 0)->text().length() > 0)    //поле продукта непустое
+            {
+                form->write("AY" + QString::number(25 + i), table->item(i, 3)->text());        //кол-во
+                form->write("BC" + QString::number(25 + i), table->item(i, 4)->text());        //сумма
+                sum += table->item(i, 4)->text().toFloat();
+            }
+        }
+        form->write("BC35", QString::number(sum, 'f', 2));
+
+    //заполняем оборотную сторону формы
+        float sum2 = 0;
+        for (int i = 0; i + 10 < (table->rowCount() - 1) && i <= 21; i++)   //все строки таблицы кроме пустой
+        {
+            int j = i + 10;
+           if (table->item(j, 0)->text().length() > 0)     //поле продукта непустое
+            {
+                form->write("AY" + QString::number(44 + i), table->item(j, 3)->text());        //код единицы
+                form->write("BC" + QString::number(44 + i), table->item(j, 4)->text());        //код единицы
+                sum2 += table->item(j, 4)->text().toFloat();
+            }
+        }
+        form->write("BC66", QString::number(sum2, 'f', 2));
+        form->write("BC67", QString::number(sum2 + sum, 'f', 2));
+
+        form.write("AZ20", Date->date().day());        //дата остатка
+        form.write("AZ39", Date->date().day());        //дата остатка
+        form.write("BB20", Date->date().month());        //дата остатка
+        form.write("BB39", Date->date().month());        //дата остатка
+        form.write("BF20", Date->date().year()%1000);        //дата остатка
+        form.write("BF39", Date->date().year()%1000);        //дата остатка
+        break;
+    }
+    case 2:
+    {
+        float sum = 0;
+        for (int i = 0; i < (table->rowCount() - 1) && i <= 9; i++)   //все строки таблицы кроме пустой
+        {
+            if (table->item(i, 0)->text().length() > 0)    //поле продукта непустое
+            {
+                form->write("BI" + QString::number(25 + i), table->item(i, 3)->text());        //кол-во
+                form->write("BN" + QString::number(25 + i), table->item(i, 4)->text());        //сумма
+                sum += table->item(i, 4)->text().toFloat();
+            }
+        }
+        form->write("BN35", QString::number(sum, 'f', 2));
+
+    //заполняем оборотную сторону формы
+        float sum2 = 0;
+        for (int i = 0; i + 10 < (table->rowCount() - 1) && i <= 21; i++)   //все строки таблицы кроме пустой
+        {
+            int j = i + 10;
+           if (table->item(j, 0)->text().length() > 0)     //поле продукта непустое
+            {
+                form->write("BI" + QString::number(44 + i), table->item(j, 3)->text());        //код единицы
+                form->write("BN" + QString::number(44 + i), table->item(j, 4)->text());        //код единицы
+                sum2 += table->item(j, 4)->text().toFloat();
+            }
+        }
+        form->write("BN66", QString::number(sum2, 'f', 2));
+        form->write("BN67", QString::number(sum2 + sum, 'f', 2));
+
+        form.write("BJ20", Date->date().day());        //дата остатка
+        form.write("BJ39", Date->date().day());        //дата остатка
+        form.write("BL20", Date->date().month());        //дата остатка
+        form.write("BL39", Date->date().month());        //дата остатка
+        form.write("BQ20", Date->date().year()%1000);        //дата остатка
+        form.write("BQ39", Date->date().year()%1000);        //дата остатка
+        break;
+    }
+    case 3:
+    {
+        float sum = 0;
+        for (int i = 0; i < (table->rowCount() - 1) && i <= 9; i++)   //все строки таблицы кроме пустой
+        {
+            if (table->item(i, 0)->text().length() > 0)    //поле продукта непустое
+            {
+                form->write("BT" + QString::number(25 + i), table->item(i, 3)->text());        //кол-во
+                form->write("BX" + QString::number(25 + i), table->item(i, 4)->text());        //сумма
+                sum += table->item(i, 4)->text().toFloat();
+            }
+        }
+        form->write("BX35", QString::number(sum, 'f', 2));
+
+    //заполняем оборотную сторону формы
+        float sum2 = 0;
+        for (int i = 0; i + 10 < (table->rowCount() - 1) && i <= 21; i++)   //все строки таблицы кроме пустой
+        {
+            int j = i + 10;
+           if (table->item(j, 0)->text().length() > 0)     //поле продукта непустое
+            {
+                form->write("BT" + QString::number(44 + i), table->item(j, 3)->text());        //код единицы
+                form->write("BX" + QString::number(44 + i), table->item(j, 4)->text());        //код единицы
+                sum2 += table->item(j, 4)->text().toFloat();
+            }
+        }
+        form->write("BX66", QString::number(sum2, 'f', 2));
+        form->write("BX67", QString::number(sum2 + sum, 'f', 2));
+        form.write("BU20", Date->date().day());        //дата остатка
+        form.write("BU39", Date->date().day());        //дата остатка
+        form.write("BW20", Date->date().month());        //дата остатка
+        form.write("BW39", Date->date().month());        //дата остатка
+        form.write("CA20", Date->date().year()%1000);        //дата остатка
+        form.write("CA39", Date->date().year()%1000);        //дата остатка
+        break;
+    }
+    default:
+        break;
+    }
 }
 
 
@@ -385,3 +644,6 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
     }
 }
+
+
+
